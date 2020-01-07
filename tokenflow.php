@@ -1,12 +1,11 @@
 <?php
-	class Generator
+	class TokenGenerator
 	{
 		var $functions = array('main');
 		var $curfunction = 0;
 		var $code;
 		var $prototypes;
 		var $includes = array();
-		var $defines = array();
 		var $cppincludes = array();
 		var $namespace;
 		var $tabs = 0;
@@ -23,7 +22,7 @@
 		var $switched = array();
 		var $libs = array();
 		var $globals = array();
-		function Generator($tokenizer)
+		function __construct($tokenizer)
 		{
 			global $funcs;
 			$this->code = array('main' => array());
@@ -490,7 +489,7 @@
 				return array('array()', $i);
 			if(strtolower($funcname) == 'define')
 			{
-				if($parameters[0]{0} == '"')
+				if($parameters[0][0] == '"')
 					$parameters[0] = substr($parameters[0], 1, -1);
 				$this->defines[$parameters[0]] = $parameters[1];
 				return array(NULL, $i);

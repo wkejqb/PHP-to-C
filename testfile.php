@@ -10,6 +10,10 @@ while ($data = socket_read($sock, 2046))
 	echo $data, "\n";
 	$temp = explode(':', $data);
 	$temp2 = explode('!', $temp[1]);
+	if (!isset($temp2[1])) {
+		echo "bad response\n";
+		return;
+	}
 	$temp3 = explode(' ', $temp2[1]);
 	if(strpos('TestBOT: PING?', $temp[2]) !== false)
 		socket_write($sock, 'PRIVMSG ' . $temp3[2] . ' :' . $temp2[0] . ": PONG!\r\n");
